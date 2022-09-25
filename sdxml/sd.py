@@ -17,19 +17,6 @@ class Properties:
 
         return self.properties
 
-    def get_property(self, key):
-        """Method to retrieve a property.
-
-        Args:
-            ``keys`` (:obj:`str` or :obj:`tuple`):  A string or tuple
-            of strings giving the key for the property.
-        Returns:
-            :obj:`str`: The property as a string.
-
-        """
-
-        return str(self.properties[key])
-
     def update_properties(self, properties):
         """Method to update the properties.
 
@@ -119,4 +106,122 @@ class Collection(Properties):
         """
 
         return self.collection
+
+    def write_to_xml(self, file, pretty_print=True):
+        """Method to write the collection to XML.
+
+        Args:
+            ``file`` (:obj:`str`) The output file name.
+
+            ``pretty_print`` (:obj:`bool`, optional): If set to True,
+            routine outputs the xml in nice indented format.
+
+        Return:
+            On successful return, the sample collection data have been
+            written to the XML output file.
+
+        """
+
+        root = etree.Element("collection")
+        xml = etree.ElementTree(root)
+
+        self._add_properties(root, self)
+
+        my_coll = self.get()
+
+        for s in my_coll:
+
+            my_sample = etree.SubElement(root, "sample")
+
+            my_name = etree.SubElement(my_sample, "name")
+
+            my_name.text = my_coll[s].get_name()
+
+            self._add_properties(my_sample, my_coll[s])
+
+        xml.write(file, pretty_print=pretty_print)
+
+    def _add_properties(self, my_element, my_object):
+        my_props = my_object.get_properties()
+
+        if len(my_props):
+            props = etree.SubElement(my_element, "properties")
+            for prop in my_props:
+                if isinstance(prop, str):
+                    my_prop = etree.SubElement(props, "property", name=prop)
+                elif isinstance(prop, tuple):
+                    if len(prop) == 2:
+                        my_prop = etree.SubElement(
+                            props, "property", name=prop[0], tag1=prop[1]
+                        )
+                    elif len(prop) == 3:
+                        my_prop = etree.SubElement(
+                            props, "property", name=prop[0], tag1=prop[1], tag2=prop[2]
+                        )
+                else:
+                    print("Improper property key")
+                    exit()
+
+                my_prop.text = str(my_props[prop])
+
+    def update_from_xml(self, file, xpath = ""):
+        """Method to update a sample collection from an XML file.
+
+        Args:
+            ``file`` (:obj:`str`) The name of the XML file from which to update.
+
+            ``xpath`` (:obj:`str`, optional): XPath expression to select
+            samples.  Defaults to all samples.
+
+        Returns:
+            On successful return, the sample collection has been updated.
+
+        """
+
+        parser = etree.XMLParser(remove_blank_text=True)
+        xml = etree.parse(file, parser)
+        xml.xinclude()
+
+        coll = xml.getroot()
+
+        self._update_properties(coll, self)
+
+        el_sample = coll.xpath('//sample' + xpath)
+
+        for s in el_sample:
+            name = s.xpath(".//name")
+            my_sample = Sample(name[0].text)
+            self._update_properties(s, my_sample)
+
+            self.add_sample(my_sample)
+
+    def _update_properties(self, my_element, my_object):
+        el_props = my_element.xpath("properties")
+
+        if len(el_props) > 0:
+            props = el_props[0].xpath("property")
+
+            my_props = {}
+            for prop in props:
+                attributes = prop.attrib
+                my_keys = attributes.keys()
+                if len(my_keys) == 1:
+                    my_props[attributes[my_keys[0]]] = prop.text
+                elif len(my_keys) == 2:
+                    my_props[
+                        (attributes[my_keys[0]], attributes[my_keys[1]])
+                    ] = prop.text
+                elif len(my_keys) == 3:
+                    my_props[
+                        (
+                            attributes[my_keys[0]],
+                            attributes[my_keys[1]],
+                            attributes[my_keys[2]],
+                        )
+                    ] = prop.text
+                else:
+                    print("Improper keys for property")
+                    exit()
+
+            my_object.update_properties(my_props)
 
