@@ -1,6 +1,7 @@
 import numpy as np
 from lxml import etree
 
+
 class Properties:
     """A class for storing and retrieving properties."""
 
@@ -31,6 +32,7 @@ class Properties:
 
         self.properties = {**self.properties, **properties}
 
+
 class Sample(Properties):
     """A class for storing and retrieving data about a data sample.
 
@@ -54,6 +56,7 @@ class Sample(Properties):
         """
 
         return self.name
+
 
 class Collection(Properties):
     """A class for storing and retrieving data about data samples.
@@ -164,7 +167,7 @@ class Collection(Properties):
 
                 my_prop.text = str(my_props[prop])
 
-    def update_from_xml(self, file, xpath = ""):
+    def update_from_xml(self, file, xpath=""):
         """Method to update a sample collection from an XML file.
 
         Args:
@@ -186,7 +189,7 @@ class Collection(Properties):
 
         self._update_properties(coll, self)
 
-        el_sample = coll.xpath('//sample' + xpath)
+        el_sample = coll.xpath("//sample" + xpath)
 
         for s in el_sample:
             name = s.xpath(".//name")
@@ -224,4 +227,3 @@ class Collection(Properties):
                     exit()
 
             my_object.update_properties(my_props)
-

@@ -41,7 +41,7 @@ setup(
     # This field corresponds to the "Description-Content-Type" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-content-type-optional
     long_description_content_type="text/x-rst",  # Optional (see note above)
-    url="https://github.com/mbrqdle/sdxml",  # Optional
+    url="https://github.com/mbradle/sdxml",  # Optional
     author="Clemson University",  # Optional
     author_email="mbradle@g.clemson.edu",  # Optional
     license="GPLv3+",
