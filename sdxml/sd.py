@@ -1,6 +1,4 @@
-import numpy as np
 from lxml import etree
-
 
 class Properties:
     """A class for storing and retrieving properties."""

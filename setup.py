@@ -43,7 +43,7 @@ setup(
     long_description_content_type="text/x-rst",  # Optional (see note above)
     url="https://github.com/mbradle/sdxml",  # Optional
     author="Clemson University",  # Optional
-    author_email="mbradle@g.clemson.edu",  # Optional
+    author_email="mbradle@clemson.edu",  # Optional
     license="GPLv3+",
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[  # Optional
@@ -71,7 +71,7 @@ setup(
     # project page. What does your project relate to?
     #
     # Note that this is a string of words separated by whitespace, not a list.
-    keywords="astronomy nuclear astrophysics",  # Optional
+    keywords="astronomy nuclear astrophysics cosmochemistry geology",  # Optional
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().
     #
@@ -88,7 +88,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=["lxml", "numpy"],  # Optional
+    install_requires=["lxml"],  # Optional
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
     # syntax, for example:

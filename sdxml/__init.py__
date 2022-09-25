@@ -1,4 +1,0 @@
-"""
-A package of python routines to work with same data in XML format.
-"""
-from sdxml.sd import *
