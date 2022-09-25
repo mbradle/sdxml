@@ -151,17 +151,10 @@ class Collection(Properties):
                 if isinstance(prop, str):
                     my_prop = etree.SubElement(props, "property", name=prop)
                 elif isinstance(prop, tuple):
-                    if len(prop) == 2:
-                        my_prop = etree.SubElement(
-                            props, "property", name=prop[0], tag1=prop[1]
-                        )
-                    elif len(prop) == 3:
-                        my_prop = etree.SubElement(
-                            props, "property", name=prop[0], tag1=prop[1], tag2=prop[2]
-                        )
-                else:
-                    print("Improper property key")
-                    exit()
+                    my_prop = etree.SubElement(props, "property", name=prop[0])
+                    for i in range(1, len(prop)):
+                        my_tag = 'tag' + str(i)
+                        my_prop.attrib[my_tag] = prop[i]
 
                 my_prop.text = str(my_props[prop])
 
@@ -208,20 +201,10 @@ class Collection(Properties):
                 my_keys = attributes.keys()
                 if len(my_keys) == 1:
                     my_props[attributes[my_keys[0]]] = prop.text
-                elif len(my_keys) == 2:
-                    my_props[
-                        (attributes[my_keys[0]], attributes[my_keys[1]])
-                    ] = prop.text
-                elif len(my_keys) == 3:
-                    my_props[
-                        (
-                            attributes[my_keys[0]],
-                            attributes[my_keys[1]],
-                            attributes[my_keys[2]],
-                        )
-                    ] = prop.text
                 else:
-                    print("Improper keys for property")
-                    exit()
+                    tup = ()
+                    for i in range(len(my_keys)):
+                        tup += (attributes[my_keys[i]],)
+                    my_props[tup] = prop.text
 
             my_object.update_properties(my_props)
