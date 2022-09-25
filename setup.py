@@ -41,9 +41,9 @@ setup(
     # This field corresponds to the "Description-Content-Type" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-content-type-optional
     long_description_content_type="text/x-rst",  # Optional (see note above)
-    url="https://github.com/jaadt7/lvlspy",  # Optional
+    url="https://github.com/mbrqdle/sdxml",  # Optional
     author="Clemson University",  # Optional
-    author_email="jtannou@g.clemson.edu",  # Optional
+    author_email="mbradle@g.clemson.edu",  # Optional
     license="GPLv3+",
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[  # Optional
@@ -88,7 +88,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=["lxml", "astropy", "numpy"],  # Optional
+    install_requires=["lxml", "numpy"],  # Optional
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
     # syntax, for example:
@@ -134,9 +134,9 @@ setup(
     # maintainers, and where to support the project financially. The key is
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
-        "Bug Reports": "https://github.com/jaadt7/lvlspy/issues",
+        "Bug Reports": "https://github.com/mbradle/sdxml/issues",
         # 'Funding': 'https://donate.pypi.org',
         # 'Say Thanks!': 'http://saythanks.io/to/example',
-        "Source": "https://github.com/jaadt7/lvlspy/",
+        "Source": "https://github.com/mbradle/sdxml/",
     },
 )
