@@ -1,5 +1,6 @@
 from lxml import etree
 
+
 class Properties:
     """A class for storing and retrieving properties."""
 
@@ -130,9 +131,11 @@ class Collection(Properties):
 
         my_coll = self.get()
 
+        samples = etree.SubElement(root, "samples")
+
         for s in my_coll:
 
-            my_sample = etree.SubElement(root, "sample")
+            my_sample = etree.SubElement(samples, "sample")
 
             my_name = etree.SubElement(my_sample, "name")
 
@@ -151,10 +154,14 @@ class Collection(Properties):
                 if isinstance(prop, str):
                     my_prop = etree.SubElement(props, "property", name=prop)
                 elif isinstance(prop, tuple):
-                    my_prop = etree.SubElement(props, "property", name=prop[0])
-                    for i in range(1, len(prop)):
-                        my_tag = 'tag' + str(i)
-                        my_prop.attrib[my_tag] = prop[i]
+                    if len(prop) < 6:
+                        my_prop = etree.SubElement(props, "property", name=prop[0])
+                        for i in range(1, len(prop)):
+                            my_tag = "tag" + str(i)
+                            my_prop.attrib[my_tag] = prop[i]
+                    else:
+                        print("Too many property tags for schema--should be <= 5.")
+                        exit()
 
                 my_prop.text = str(my_props[prop])
 
