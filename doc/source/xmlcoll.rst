@@ -6,6 +6,14 @@ xmlcoll package
    :undoc-members:
    :show-inheritance:
 
+xmlcoll.base module
+-------------------
+
+.. automodule:: xmlcoll.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 xmlcoll.coll module
 -------------------
 
