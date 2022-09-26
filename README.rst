@@ -1,7 +1,7 @@
 Overview
 ========
 
-sdxml is a python package for working with heterogeneous data about samples.
+xmlcoll is a python package for working with heterogeneous data about samples.
 The data are stored as `properties` in
 a :obj:`dict` with `keys` given by a
 `name` and optional `tags`.  The package API has routines to write data to and
@@ -10,16 +10,16 @@ retrieve data from `XML <https://www.w3.org/XML/>`_.
 Installation
 ------------
 
-Install from `PyPI <https://pypi.org/project/sdxml>`_ with pip by
+Install from `PyPI <https://pypi.org/project/xmlcoll>`_ with pip by
 typing in your favorite terminal::
 
-    $ pip install sdxml
+    $ pip install xmlcoll
 
 Usage
 -----
 
-To get familiar with sdxml, please see our tutorial Jupyter
-`notebooks <https://github.com/mbradle/sdxml_tutorial>`_.
+To get familiar with xmlcoll, please see the tutorial Jupyter
+`notebooks <https://github.com/mbradle/xmlcoll_tutorial>`_.
 
 Authors
 -------
@@ -29,8 +29,8 @@ Authors
 Contribute
 ----------
 
-- Issue Tracker: `<https://github.com/mbradle/sdxml/issues/>`_
-- Source Code: `<https://github.com/mbradle/sdxml/>`_
+- Issue Tracker: `<https://github.com/mbradle/xmlcoll/issues/>`_
+- Source Code: `<https://github.com/mbradle/xmlcoll/>`_
 
 License
 -------

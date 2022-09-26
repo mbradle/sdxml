@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 base_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), "../..")
 
 about = {}
-with open(os.path.join(base_dir, "sdxml", "__about__.py")) as f:
+with open(os.path.join(base_dir, "xmlcoll", "__about__.py")) as f:
     exec(f.read(), about)
 
 
@@ -112,7 +112,7 @@ html_static_path = ["_static"]
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "sdxmldoc"
+htmlhelp_basename = "xmlcolldoc"
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -136,7 +136,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "sdxml.tex", "sdxml Documentation", "Clemson University", "manual")
+    (master_doc, "xmlcoll.tex", "xmlcoll Documentation", "Clemson University", "manual")
 ]
 
 
@@ -144,7 +144,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "sdxml", "sdxml Documentation", [author], 1)]
+man_pages = [(master_doc, "xmlcoll", "xmlcoll Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -155,10 +155,10 @@ man_pages = [(master_doc, "sdxml", "sdxml Documentation", [author], 1)]
 texinfo_documents = [
     (
         master_doc,
-        "sdxml",
-        "sdxml Documentation",
+        "xmlcoll",
+        "xmlcoll Documentation",
         author,
-        "sdxml",
+        "xmlcoll",
         "One line description of project.",
         "Miscellaneous",
     )

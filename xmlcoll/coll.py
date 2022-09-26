@@ -32,8 +32,8 @@ class Properties:
         self.properties = {**self.properties, **properties}
 
 
-class Sample(Properties):
-    """A class for storing and retrieving data about a data sample.
+class Item(Properties):
+    """A class for storing and retrieving data about a data item.
 
     Args:
         ``properties`` (:obj:`dict`, optional): A dictionary of properties.
@@ -47,7 +47,7 @@ class Sample(Properties):
             self.update_properties(properties)
 
     def get_name(self):
-        """Method to retrieve name of sample.
+        """Method to retrieve name of item.
 
         Return:
             :obj:`str`: The name of the same.
@@ -58,52 +58,52 @@ class Sample(Properties):
 
 
 class Collection(Properties):
-    """A class for storing and retrieving data about data samples.
+    """A class for storing and retrieving data about data items.
 
     Args:
-        ``samples`` (:obj:`list`, optional): A list of individual
-        :obj:`sdxml.sd.Sample` objects.
+        ``items`` (:obj:`list`, optional): A list of individual
+        :obj:`sdxml.sd.Item` objects.
 
     """
 
-    def __init__(self, samples=None):
+    def __init__(self, items=None):
         self.properties = {}
         self.collection = {}
-        if samples:
-            for s in samples:
+        if items:
+            for s in items:
                 self.collection[s.get_name()] = s
 
-    def add_sample(self, sample):
-        """Method to add a sample to a collection.
+    def add_item(self, item):
+        """Method to add a item to a collection.
 
         Args:
-            ``sample`` (:obj:`sdxml.sd.Sample`) The sample to be added.
+            ``item`` (:obj:`sdxml.sd.Item`) The item to be added.
 
         Return:
-            On successful return, the sample has been added.
+            On successful return, the item has been added.
 
         """
 
-        self.collection[sample.get_name()] = sample
+        self.collection[item.get_name()] = item
 
-    def remove_sample(self, sample):
-        """Method to remove a sample from a sample collection.
+    def remove_item(self, item):
+        """Method to remove a item from a item collection.
 
         Args:
-            ``sample`` (:obj:`sdxml.sd.Sample`) The sample to be removed.
+            ``item`` (:obj:`sdxml.sd.Item`) The item to be removed.
 
         Return:
-            On successful return, the sample has been removed.
+            On successful return, the item has been removed.
 
         """
 
-        self.collection.pop(sample.get_name())
+        self.collection.pop(item.get_name())
 
     def get(self):
-        """Method to retrieve the sample collection as a dictionary.
+        """Method to retrieve the item collection as a dictionary.
 
         Returns:
-            :obj:`dict`: A dictionary of the samples.
+            :obj:`dict`: A dictionary of the items.
 
         """
 
@@ -119,7 +119,7 @@ class Collection(Properties):
             routine outputs the xml in nice indented format.
 
         Return:
-            On successful return, the sample collection data have been
+            On successful return, the item collection data have been
             written to the XML output file.
 
         """
@@ -131,17 +131,17 @@ class Collection(Properties):
 
         my_coll = self.get()
 
-        samples = etree.SubElement(root, "samples")
+        items = etree.SubElement(root, "items")
 
         for s in my_coll:
 
-            my_sample = etree.SubElement(samples, "sample")
+            my_item = etree.SubElement(items, "item")
 
-            my_name = etree.SubElement(my_sample, "name")
+            my_name = etree.SubElement(my_item, "name")
 
             my_name.text = my_coll[s].get_name()
 
-            self._add_properties(my_sample, my_coll[s])
+            self._add_properties(my_item, my_coll[s])
 
         xml.write(file, pretty_print=pretty_print)
 
@@ -154,28 +154,24 @@ class Collection(Properties):
                 if isinstance(prop, str):
                     my_prop = etree.SubElement(props, "property", name=prop)
                 elif isinstance(prop, tuple):
-                    if len(prop) < 6:
-                        my_prop = etree.SubElement(props, "property", name=prop[0])
-                        for i in range(1, len(prop)):
-                            my_tag = "tag" + str(i)
-                            my_prop.attrib[my_tag] = prop[i]
-                    else:
-                        print("Too many property tags for schema--should be <= 5.")
-                        exit()
+                    my_prop = etree.SubElement(props, "property", name=prop[0])
+                    for i in range(1, len(prop)):
+                        my_tag = "tag" + str(i)
+                        my_prop.attrib[my_tag] = prop[i]
 
                 my_prop.text = str(my_props[prop])
 
     def update_from_xml(self, file, xpath=""):
-        """Method to update a sample collection from an XML file.
+        """Method to update a item collection from an XML file.
 
         Args:
             ``file`` (:obj:`str`) The name of the XML file from which to update.
 
             ``xpath`` (:obj:`str`, optional): XPath expression to select
-            samples.  Defaults to all samples.
+            items.  Defaults to all items.
 
         Returns:
-            On successful return, the sample collection has been updated.
+            On successful return, the item collection has been updated.
 
         """
 
@@ -187,14 +183,14 @@ class Collection(Properties):
 
         self._update_properties(coll, self)
 
-        el_sample = coll.xpath("//sample" + xpath)
+        el_item = coll.xpath("//item" + xpath)
 
-        for s in el_sample:
+        for s in el_item:
             name = s.xpath(".//name")
-            my_sample = Sample(name[0].text)
-            self._update_properties(s, my_sample)
+            my_item = Item(name[0].text)
+            self._update_properties(s, my_item)
 
-            self.add_sample(my_sample)
+            self.add_item(my_item)
 
     def _update_properties(self, my_element, my_object):
         el_props = my_element.xpath("properties")

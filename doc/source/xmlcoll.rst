@@ -1,15 +1,15 @@
-sdxml package
-==============
+xmlcoll package
+===============
 
-.. automodule:: sdxml
+.. automodule:: xmlcoll
    :members:
    :undoc-members:
    :show-inheritance:
 
-sdxml.sd module
----------------
+xmlcoll.coll module
+-------------------
 
-.. automodule:: sdxml.sd
+.. automodule:: xmlcoll.coll
    :members:
    :undoc-members:
    :show-inheritance:

@@ -3,6 +3,6 @@ Documentation
 
 .. toctree::
 
-   sdxml
+   xmlcoll
 
 
